@@ -1056,7 +1056,7 @@
             recentPublications.forEach((pub, index) => {
                 const pubItem = document.createElement('div');
                 pubItem.className = 'publication-item';
-                
+                const authorHighlighted = pub.authors.replace(/\bHao Ren\b/g, '<strong class="highlight-author">Hao Ren</strong>');
                 // 生成链接HTML（如果存在）
                 let linksHTML = '';
                 if (pub.pdf) linksHTML += `<a href="${pub.pdf}" class="publication-link"><i class="far fa-file-pdf"></i> PDF</a>`;
@@ -1065,7 +1065,7 @@
                 
                 pubItem.innerHTML = `
                     <div class="publication-title">${pub.title}</div>
-                    <div class="publication-authors">${pub.authors}</div>
+                    <div class="publication-authors">${authorHighlighted}</div>
                     <div>${pub.journal}, ${pub.year}</div>
                     ${linksHTML ? `<div class="publication-details">${linksHTML}</div>` : ''}
                 `;
