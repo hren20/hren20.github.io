@@ -1,0 +1,446 @@
+<!-- research.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research | Dr. Mingzhe Zhang</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 这里放置与主页相同的CSS样式 */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --spacing: 2rem;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --header-height: 70px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding-top: var(--header-height);
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            height: var(--header-height);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a.active {
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+            border-radius: var(--border-radius);
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .page-title i {
+            background: rgba(255, 255, 255, 0.2);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+        
+        .section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .research-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* 改为单栏 */
+            gap: 25px;
+        }
+        
+        .research-card {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .research-image {
+            width: 400px;
+            min-width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white; /* optional background */
+            padding: 10px;
+        }
+        
+        .research-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            background: transparent; /* 图片透明背景 */
+        }
+
+        /* 右侧内容 */
+        .research-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+
+        @media (max-width: 768px) {
+            .research-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .research-image {
+                width: 100%;
+                height: auto;
+            }
+
+            .research-img {
+                width: 100%;
+                height: auto;
+                max-height: 250px;
+            }
+        }
+
+        /* .research-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        } */
+        
+        /* .research-desc {
+            color: var(--gray);
+            margin-bottom: 15px;
+        } */
+        
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: var(--light);
+            border-radius: 30px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .link-btn i {
+            margin-right: 8px;
+        }
+        
+        .link-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--gray);
+            font-style: italic;
+        }
+        
+        .error-message {
+            background: #ffeeee;
+            border-left: 4px solid var(--accent);
+            padding: 15px;
+            margin: 15px 0;
+            color: #e74c3c;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            background: white;
+            margin-top: 40px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+        
+        @media (max-width: 992px) {
+            .research-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                transform: translateY(-150%);
+                transition: transform 0.4s ease;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo"> <span>Hao Ren</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="research.html" class="active">Research</a></li>
+            <li><a href="publications.html">Publications</a></li>
+        </ul>
+        <div class="mobile-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="page-header">
+            <h1 class="page-title">
+                <i class="fas fa-flask"></i>
+                <span>Research Projects</span>
+            </h1>
+        </header>
+        
+        <section class="section">
+            <div id="research-content">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading research projects...
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 Hao Ren | School of Computer Science and Engineering, Sun Yat-sen University</p>
+            <p>Guangzhou, Guangdong 511400, China | Email: renh55@mail2.sysu.edu.cn</p>
+        </div>
+    </footer>
+
+    <script>
+        // 移动导航切换
+        const mobileToggle = document.querySelector('.mobile-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        if (mobileToggle && navLinks) {
+            mobileToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+            
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                });
+            });
+        }
+
+        // 加载所有研究项目
+        async function loadResearch() {
+            try {
+                const response = await fetch('_includes/research.json');
+                if (!response.ok) throw new Error(`Failed to load research: ${response.status}`);
+                const researchData = await response.json();
+                displayResearch(researchData);
+            } catch (error) {
+                console.error('Error loading research:', error);
+                document.getElementById('research-content').innerHTML = `
+                    <div class="error-message">
+                        <p><strong>Error loading research projects:</strong> ${error.message}</p>
+                        <p>Please check the research.json file</p>
+                    </div>
+                `;
+            }
+        }
+
+        function displayResearch(researchData) {
+            const researchContainer = document.getElementById('research-content');
+            if (!researchContainer) return;
+
+            researchContainer.innerHTML = '';
+
+            if (!researchData || researchData.length === 0) {
+                researchContainer.innerHTML = '<p>No research projects available</p>';
+                return;
+            }
+
+            // 创建网格容器
+            const researchGrid = document.createElement('div');
+            researchGrid.className = 'research-grid';
+            researchContainer.appendChild(researchGrid);
+
+            researchData.forEach(research => {
+                const researchCard = document.createElement('div');
+                researchCard.className = 'research-card';
+
+                // 判断是否有 image 字段，优先显示图片，否则降级为默认图标
+                const imageContent = research.image
+                    ? `<img src="${research.image}" alt="${research.title}" class="research-img">`
+                    : `<i class="fas fa-flask"></i>`;
+
+                researchCard.innerHTML = `
+                    <div class="research-image">
+                        ${imageContent}
+                    </div>
+                    <div class="research-content">
+                        <h3 class="research-title">${research.title}</h3>
+                        <p class="research-desc">${research.description}</p>
+                        <a href="${research.link || '#'}" class="link-btn"><i class="fas fa-arrow-right"></i> Learn More</a>
+                    </div>
+                `;
+                researchGrid.appendChild(researchCard);
+            });
+}
+
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', loadResearch);
+    </script>
+</body>
+</html>

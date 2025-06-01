@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hao Ren - Academic Homepage</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --gray: #95a5a6;
+            --spacing: 2rem;
+            --border-radius: 8px;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --header-height: 70px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            padding-top: var(--header-height);
+        }
+        
+        /* Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: white;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            height: var(--header-height);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--secondary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 100px 0 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="0,0 100,100 0,100" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 100% 100%;
+            opacity: 0.3;
+        }
+        
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* .profile-container {
+            position: relative;
+            z-index: 1;
+        } */
+
+        /* 模糊背景层 */
+        .photo-background {
+            position: absolute;
+            top: -30%;
+            left: 0;
+            width: 120%;
+            height: 150%; /* 填满整个 header 区域 */
+            background-image: url('_data/hao-ren.jpg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(20px);
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        /* 提高头像容器优先级 */
+        .profile-photo {
+            position: relative;
+            z-index: 1;
+            background: transparent;
+        }
+
+        .profile-photo {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            /* background: linear-gradient(45deg, #3498db, #2c3e50); */
+            background: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 80px;
+            overflow: hidden;
+        }
+        
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            z-index: 1;
+        }
+        
+        .title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            font-weight: 500;
+            max-width: 100%;
+            /* 关键优化：防止换行 */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+            z-index: 1;
+        }
+        
+        /* 在较小屏幕上调整样式 */
+        @media (max-width: 992px) {
+            .title {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .title {
+                font-size: 1.0rem;
+                white-space: normal;
+                text-overflow: clip;
+            }
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            z-index: 1;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background: white;
+            color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .section {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+            margin: 30px 0;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light);
+            color: var(--primary);
+        }
+        
+        .section-title i {
+            margin-right: 15px;
+            background: var(--secondary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .about-content {
+            line-height: 1.8;
+        }
+        
+        .about-content p {
+            margin-bottom: 15px;
+        }
+        
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 20px;
+            background: var(--light);
+            border-radius: 30px;
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .link-btn i {
+            margin-right: 8px;
+        }
+        
+        .link-btn:hover {
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .news-item {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+        }
+        
+        .news-date {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .news-date i {
+            margin-right: 8px;
+        }
+        
+        .news-content {
+            font-weight: 500;
+        }
+
+        .research-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* 改为单栏 */
+            gap: 25px;
+        }
+        
+        .research-card {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .research-image {
+            width: 400px;
+            min-width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white; /* optional background */
+            padding: 10px;
+        }
+        
+        .research-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            background: transparent; /* 图片透明背景 */
+        }
+
+        /* 右侧内容 */
+        .research-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+
+        @media (max-width: 768px) {
+            .research-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .research-image {
+                width: 100%;
+                height: auto;
+            }
+
+            .research-img {
+                width: 100%;
+                height: auto;
+                max-height: 250px;
+            }
+        }
+
+        /* .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .research-card {
+            border: 1px solid var(--light);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .research-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .research-image {
+            height: 180px;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .research-content {
+            padding: 20px;
+        }
+        
+        .research-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .research-desc {
+            color: var(--gray);
+            margin-bottom: 15px;
+        } */
+        
+        .publication-list {
+            counter-reset: publication-counter;
+        }
+        
+        .publication-item {
+            padding: 20px 0 20px 60px;
+            border-bottom: 1px solid var(--light);
+            position: relative;
+        }
+        
+        .publication-item:last-child {
+            border-bottom: none;
+        }
+        
+        .publication-item::before {
+            counter-increment: publication-counter;
+            content: counter(publication-counter);
+            position: absolute;
+            left: 0;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .publication-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .publication-authors {
+            color: var(--gray);
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        
+        .publication-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .publication-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .publication-link i {
+            margin-right: 5px;
+        }
+        
+        .publication-link:hover {
+            color: var(--accent);
+        }
+        
+        .section-footer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .more-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 25px;
+            background: var(--secondary);
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .more-btn:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            color: var(--gray);
+            font-size: 0.9rem;
+            background: white;
+            margin-top: 40px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+        }
+        
+        @media (max-width: 992px) {
+            .research-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+                transform: translateY(-150%);
+                transition: transform 0.4s ease;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .nav-links li {
+                margin: 15px 0;
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .profile-photo {
+                width: 250px;
+                height: 250px;
+                font-size: 60px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .research-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .publication-item {
+                padding-left: 50px;
+            }
+            
+            .publication-item::before {
+                width: 35px;
+                height: 35px;
+            }
+        }
+        /* === ENHANCED VERTICAL SECTION NAV === */
+        .section-nav {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50px;
+            padding: 20px 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(236, 240, 241, 0.8);
+        }
+        
+        .section-nav:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-50%) scale(1.03);
+        }
+        
+        .section-nav a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray);
+            padding: 12px 20px;
+            border-radius: 30px;
+            transition: var(--transition);
+            white-space: nowrap;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .section-nav a i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+            min-width: 20px;
+            text-align: center;
+        }
+        
+        .section-nav a:hover {
+            background: var(--light);
+            color: var(--secondary);
+        }
+        
+        .section-nav a.active {
+            background: var(--secondary);
+            color: white;
+            font-weight: bold;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+        }
+        
+        .section-nav a.active i {
+            color: white;
+        }
+        
+        /* 添加动画效果 */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .section-nav a.active::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -10px;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 1200px) {
+            .section-nav {
+                padding: 15px 8px;
+                right: 10px;
+            }
+            
+            .section-nav a {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .section-nav {
+                display: none;
+            }
+        }
+        
+        /* 添加部分标记 */
+        section::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            height: 4px;
+            width: 0;
+            background: var(--secondary);
+            transition: width 0.5s ease;
+        }
+        
+        section.active::before {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- === TOP NAVBAR === -->
+    <nav class="navbar">
+        <a href="index.html" class="logo"> <span>Hao Ren</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="news.html">News</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="publications.html">Publications</a></li>
+
+        </ul>
+        <div class="mobile-toggle"><i class="fas fa-bars"></i></div>
+    </nav>
+
+    <!-- === ENHANCED SECTION NAVIGATION === -->
+    <nav class="section-nav" aria-label="Section navigation">
+        <a href="#home" data-section="home">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#about" data-section="about">
+            <i class="fas fa-user"></i>
+            <span>About Me</span>
+        </a>
+        <a href="#news" data-section="news">
+            <i class="fas fa-newspaper"></i>
+            <span>Latest News</span>
+        </a>
+        <a href="#research" data-section="research">
+            <i class="fas fa-flask"></i>
+            <span>Research</span>
+        </a>
+        <a href="#publications" data-section="publications">
+            <i class="fas fa-book"></i>
+            <span>Publications</span>
+        </a>
+        <a href="#contact" data-section="contact">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+    </nav>
+    
+    <div class="container">
+        <header id="home">
+            <div class="profile-container">
+                <!-- 背景图层 -->
+                <div class="photo-background"></div>
+
+                <div class="profile-photo">
+                    <img src="_data/hao-ren.jpg" alt="Hao Ren">
+                </div>
+                <h1>Hao Ren</h1>
+                <div class="title">Ph.D Student | School of Computer Science and Engineering, Sun Yat-sen University</div>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fas fa-graduation-cap"></i></a>
+                    <!-- <a href="#"><i class="fab fa-researchgate"></i></a> -->
+                    <!-- <a href="#"><i class="fab fa-linkedin-in"></i></a> -->
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <!-- <a href="#"><i class="fas fa-envelope"></i></a> -->
+                </div>
+            </div>
+        </header>
+        
+        <section class="section" id="about">
+            <h2 class="section-title">
+                <i class="fas fa-user"></i>
+                <span>About Me</span>
+            </h2>
+            <div class="about-content">
+                <p>Hao Ren is a Ph.D. student in the School of Computer Science and Engineering at Sun Yat-sen University. His research focuses on computer vision, embodied AI and artificial intelligence.
+                    He received his B.S. in Electronic Information Engineering from Xidian University, the M.S. degree in Computer Technology from Shaanxi University of Science & Technology. He is currently pursuing his Ph.D. degree at Sun Yat-sen University. He has published several papers in top-tier conferences and journals such as CVPR, ICRA, IEEE RA-L and EAAI.
+                    He is an active member of the academic community, serving as a reviewer for several conferences and journals.</p>
+            </div>
+            <div class="links">
+                <a href="https://scholar.google.com/citations?hl=&user=uvrb73sAAAAJ" class="link-btn"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
+                <a href="https://github.com/hren20" class="link-btn"><i class="fab fa-github"></i> GitHub Profile</a>
+            </div>
+        </section>
+        
+        <section class="section" id="news">
+            <h2 class="section-title">
+                <i class="fas fa-newspaper"></i>
+                <span>Latest News</span>
+            </h2>
+            <div id="news-content">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading latest news...
+                </div>
+            </div>
+            <div class="section-footer">
+                <a href="news.html" class="more-btn">View All News <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+        
+        <section class="section" id="research">
+            <h2 class="section-title">
+                <i class="fas fa-flask"></i>
+                <span>Research Projects</span>
+            </h2>
+            <div id="research-content">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading research projects...
+                </div>
+            </div>
+            <div class="section-footer">
+                <a href="research.html" class="more-btn">View All Research <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+        
+        <section class="section" id="publications">
+            <h2 class="section-title">
+                <i class="fas fa-book"></i>
+                <span>Publications</span>
+            </h2>
+            <div id="publications-content">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading publications...
+                </div>
+            </div>
+            <div class="section-footer">
+                <a href="publications.html" class="more-btn">View All Publications <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+        
+        <section class="section" id="contact">
+            <h2 class="section-title">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </h2>
+            <div class="about-content">
+                <p><strong>Department:</strong> School of Computer Science and Engineering, Sun Yat-sen University</p>
+                <p><strong>Email:</strong> renh55@mail.sysu.edu.cn</p>
+                <p><strong>Address:</strong> No.132, East Outer Ring Road, Guangzhou University City, Guangzhou, China</p>
+            </div>
+            <div class="links">
+                <!-- <a href="https://github.com/hren20" class="link-btn"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://scholar.google.com/citations?hl=&user=uvrb73sAAAAJ" class="link-btn"><i class="fas fa-graduation-cap"></i> Google Scholar</a> -->
+                <!-- <a href="#" class="link-btn"><i class="fab fa-linkedin-in"></i> LinkedIn</a> -->
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>© 2025 Hao Ren | School of Computer Science and Engineering, Sun Yat-sen University</p>
+            <p>Guangzhou, Guangdong 511400, China | Email: renh55@mail2.sysu.edu.cn</p>
+        </div>
+    </footer>
+
+
+    
+    <script>
+        // 动态加载内容函数
+        async function loadContent() {
+            try {
+                // 加载新闻
+                const newsResponse = await fetch('_includes/news.json');
+                if (!newsResponse.ok) throw new Error(`Failed to load news: ${newsResponse.status}`);
+                const newsData = await newsResponse.json();
+                displayNews(newsData, 5, 'news-content');
+                
+                // 加载研究项目
+                const researchResponse = await fetch('_includes/research.json');
+                if (!researchResponse.ok) throw new Error(`Failed to load research: ${researchResponse.status}`);
+                const researchData = await researchResponse.json();
+                displayResearch(researchData, 3, 'research-content');
+                
+                // 加载出版物
+                const publicationsResponse = await fetch('_includes/publications.json');
+                if (!publicationsResponse.ok) throw new Error(`Failed to load publications: ${publicationsResponse.status}`);
+                const publicationsData = await publicationsResponse.json();
+                displayPublications(publicationsData, 5, 'publications-content');
+                
+            } catch (error) {
+                console.error('Error loading content:', error);
+                // 显示错误信息
+                document.getElementById('news-content').innerHTML = `
+                    <div class="error-message">
+                        <p><strong>Error loading news:</strong> ${error.message}</p>
+                    </div>
+                `;
+                document.getElementById('research-content').innerHTML = `
+                    <div class="error-message">
+                        <p><strong>Error loading research:</strong> ${error.message}</p>
+                    </div>
+                `;
+                document.getElementById('publications-content').innerHTML = `
+                    <div class="error-message">
+                        <p><strong>Error loading publications:</strong> ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        // 显示新闻
+        function displayNews(newsData, count, containerId) {
+            const newsContainer = document.getElementById(containerId);
+            newsContainer.innerHTML = '';
+            
+            // 只显示最新的指定数量的新闻
+            const recentNews = newsData.slice(0, count);
+            
+            if (recentNews.length === 0) {
+                newsContainer.innerHTML = '<p>No recent news available</p>';
+                return;
+            }
+            
+            recentNews.forEach(news => {
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                newsItem.innerHTML = `
+                    <div class="news-date"><i class="far fa-calendar-alt"></i> ${news.date}</div>
+                    <div class="news-content">${news.content}</div>
+                `;
+                newsContainer.appendChild(newsItem);
+            });
+        }
+        // 显示研究项目
+        // function displayResearch(researchData, count, containerId) {
+        //     const researchContainer = document.getElementById(containerId);
+        //     researchContainer.innerHTML = '';
+            
+        //     // 创建网格容器
+        //     const researchGrid = document.createElement('div');
+        //     researchGrid.className = 'research-grid';
+        //     researchContainer.appendChild(researchGrid);
+            
+        //     // 只显示最新的指定数量的研究项目
+        //     const recentResearch = researchData.slice(0, count);
+            
+        //     if (recentResearch.length === 0) {
+        //         researchGrid.innerHTML = '<p>No research projects available</p>';
+        //         return;
+        //     }
+            
+        //     recentResearch.forEach(research => {
+        //         const researchCard = document.createElement('div');
+        //         researchCard.className = 'research-card';
+        //         researchCard.innerHTML = `
+        //             <div class="research-image">
+        //                 <i class="${research.icon || 'fas fa-flask'}"></i>
+        //             </div>
+        //             <div class="research-content">
+        //                 <h3 class="research-title">${research.title}</h3>
+        //                 <p class="research-desc">${research.description}</p>
+        //                 <a href="${research.link || '#'}" class="link-btn"><i class="fas fa-arrow-right"></i> Learn More</a>
+        //             </div>
+        //         `;
+        //         researchGrid.appendChild(researchCard);
+        //     });
+        // }
+        function displayResearch(researchData, count, containerId) {
+            const researchContainer = document.getElementById(containerId);
+            if (!researchContainer) return;
+
+            researchContainer.innerHTML = '';
+
+            if (!researchData || researchData.length === 0) {
+                researchContainer.innerHTML = '<p>No research projects available</p>';
+                return;
+            }
+
+            // 创建网格容器
+            const researchGrid = document.createElement('div');
+            researchGrid.className = 'research-grid';
+            researchContainer.appendChild(researchGrid);
+
+            // 只显示最新的指定数量的研究项目
+            const recentResearch = researchData.slice(0, count);
+
+            if (recentResearch.length === 0) {
+                researchGrid.innerHTML = '<p>No research projects available</p>';
+                return;
+            }
+
+            recentResearch.forEach(research => {
+                const researchCard = document.createElement('div');
+                researchCard.className = 'research-card';
+
+                // 判断是否有 image 字段，优先显示图片，否则降级为默认图标
+                const imageContent = research.image
+                    ? `<img src="${research.image}" alt="${research.title}" class="research-img">`
+                    : `<i class="fas fa-flask"></i>`;
+
+                researchCard.innerHTML = `
+                    <div class="research-image">
+                        ${imageContent}
+                    </div>
+                    <div class="research-content">
+                        <h3 class="research-title">${research.title}</h3>
+                        <p class="research-desc">${research.description}</p>
+                        <a href="${research.link || '#'}" class="link-btn"><i class="fas fa-arrow-right"></i> Learn More</a>
+                    </div>
+                `;
+                researchGrid.appendChild(researchCard);
+            });
+        }
+        // 显示出版物
+        function displayPublications(publicationsData, count, containerId) {
+            const publicationsContainer = document.getElementById(containerId);
+            publicationsContainer.innerHTML = '';
+            
+            // 按年份排序（最新优先）
+            const sortedPublications = [...publicationsData].sort((a, b) => b.year - a.year);
+            
+            // 只显示最新的指定数量的出版物
+            const recentPublications = sortedPublications.slice(0, count);
+            
+            if (recentPublications.length === 0) {
+                publicationsContainer.innerHTML = '<p>No publications available</p>';
+                return;
+            }
+            
+            // 创建出版物列表
+            const pubList = document.createElement('div');
+            pubList.className = 'publication-list';
+            publicationsContainer.appendChild(pubList);
+            
+            recentPublications.forEach((pub, index) => {
+                const pubItem = document.createElement('div');
+                pubItem.className = 'publication-item';
+                
+                // 生成链接HTML（如果存在）
+                let linksHTML = '';
+                if (pub.pdf) linksHTML += `<a href="${pub.pdf}" class="publication-link"><i class="far fa-file-pdf"></i> PDF</a>`;
+                if (pub.code) linksHTML += `<a href="${pub.code}" class="publication-link"><i class="fab fa-github"></i> Code</a>`;
+                if (pub.project) linksHTML += `<a href="${pub.project}" class="publication-link"><i class="fas fa-external-link-alt"></i> Project</a>`;
+                
+                pubItem.innerHTML = `
+                    <div class="publication-title">${pub.title}</div>
+                    <div class="publication-authors">${pub.authors}</div>
+                    <div>${pub.journal}, ${pub.year}</div>
+                    ${linksHTML ? `<div class="publication-details">${linksHTML}</div>` : ''}
+                `;
+                pubList.appendChild(pubItem);
+            });
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile navigation toggle
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileToggle && navLinks) {
+                mobileToggle.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+                
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                        }
+                    });
+                });
+            }
+            // 加载内容
+            loadContent();
+            // Section navigation and highlighting
+            const sections = document.querySelectorAll('section, header');
+            const navLinksArray = document.querySelectorAll('.section-nav a');
+            
+            // Function to update active section
+            function updateActiveSection() {
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                        currentSection = section.getAttribute('id');
+                    }
+                });
+                
+                // Remove active classes
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                navLinksArray.forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Add active class to current section
+                const currentSectionElement = document.getElementById(currentSection);
+                if (currentSectionElement) {
+                    currentSectionElement.classList.add('active');
+                }
+                
+                // Add active class to corresponding nav link
+                navLinksArray.forEach(link => {
+                    if (link.getAttribute('href') === `#${currentSection}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Initialize and add scroll event listener
+            updateActiveSection();
+            window.addEventListener('scroll', updateActiveSection);
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Update active section after scroll
+                        setTimeout(updateActiveSection, 1000);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

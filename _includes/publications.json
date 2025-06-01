@@ -1,0 +1,50 @@
+[
+  {
+    "title": "GET: Goal-directed Exploration and Targeting for Large-Scale Unknown Environments",
+    "authors": "Lanxiang Zheng, Ruidong Mei, Mingxin Wei, Hao Ren, Hui Cheng",
+    "journal": "arXiv preprint arXiv:2505.20828",
+    "year": 2025,
+    "type": "article"
+  },
+  {
+    "title": "Layer-wise feature refinement for accurate three-dimensional lane detection with enhanced bird’s eye view transformation",
+    "authors": "Hao Ren, Mingwei Wang, Yanyang Deng, Wenping Li, Chen Liu",
+    "journal": "Engineering Applications of Artificial Intelligence",
+    "year": 2025,
+    "volume": "152",
+    "pages": "110585",
+    "type": "journal"
+  },
+  {
+    "title": "Prior does matter: Visual navigation via denoising diffusion bridge models",
+    "authors": "Hao Ren, Yiming Zeng, Zetong Bi, Zhaoliang Wan, Junlong Huang, Hui Cheng",
+    "journal": "The IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2025",
+    "year": 2025,
+    "type": "article"
+  },
+  {
+    "title": "NaviDiffusor: Cost-Guided Diffusion Model for Visual Navigation",
+    "authors": "Yiming Zeng*, Hao Ren*, Shuhang Wang, Junlong Huang, Hui Cheng",
+    "journal": "2025 IEEE International Conference on Robotics and Automation (ICRA)",
+    "year": 2025,
+    "type": "article"
+  },
+  {
+    "title": "Refinement Bird’s Eye View Feature for 3D Lane Detection with Dual-Branch View Transformation Module",
+    "authors": "Hao Ren, Mingwei Wang, Xinyu Lei, Mengli Zhang, Wenpeng Li, Chen Liu",
+    "journal": "ICASSP 2024 IEEE International Conference on Acoustics, Speech and Signal Processing",
+    "year": 2024,
+    "pages": "5930-5934",
+    "type": "conference"
+  },
+  {
+    "title": "Adaptive Patchwork: Real-Time Ground Segmentation for 3D Point Cloud With Adaptive Partitioning and Spatial-Temporal Context",
+    "authors": "Hao Ren, Mingwei Wang, Wenpeng Li, Chen Liu, Mengli Zhang",
+    "journal": "IEEE Robotics and Automation Letters",
+    "year": 2023,
+    "volume": "8",
+    "number": "11",
+    "pages": "7162-7169",
+    "type": "journal"
+  }
+]
