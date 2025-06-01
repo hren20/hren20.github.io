@@ -353,7 +353,7 @@
         // 加载所有出版物
         async function loadPublications() {
             try {
-                const response = await fetch('_includes/publications.json');
+                const response = await fetch('./_includes/publications.json');
                 if (!response.ok) throw new Error(`Failed to load publications: ${response.status}`);
                 const publicationsData = await response.json();
                 displayPublications(publicationsData);

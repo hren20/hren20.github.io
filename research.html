@@ -384,7 +384,7 @@
         // 加载所有研究项目
         async function loadResearch() {
             try {
-                const response = await fetch('_includes/research.json');
+                const response = await fetch('./_includes/research.json');
                 if (!response.ok) throw new Error(`Failed to load research: ${response.status}`);
                 const researchData = await response.json();
                 displayResearch(researchData);

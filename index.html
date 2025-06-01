@@ -892,19 +892,19 @@
         async function loadContent() {
             try {
                 // 加载新闻
-                const newsResponse = await fetch('_includes/news.json');
+                const newsResponse = await fetch('./_includes/news.json');
                 if (!newsResponse.ok) throw new Error(`Failed to load news: ${newsResponse.status}`);
                 const newsData = await newsResponse.json();
                 displayNews(newsData, 5, 'news-content');
                 
                 // 加载研究项目
-                const researchResponse = await fetch('_includes/research.json');
+                const researchResponse = await fetch('./_includes/research.json');
                 if (!researchResponse.ok) throw new Error(`Failed to load research: ${researchResponse.status}`);
                 const researchData = await researchResponse.json();
                 displayResearch(researchData, 3, 'research-content');
                 
                 // 加载出版物
-                const publicationsResponse = await fetch('_includes/publications.json');
+                const publicationsResponse = await fetch('./_includes/publications.json');
                 if (!publicationsResponse.ok) throw new Error(`Failed to load publications: ${publicationsResponse.status}`);
                 const publicationsData = await publicationsResponse.json();
                 displayPublications(publicationsData, 5, 'publications-content');

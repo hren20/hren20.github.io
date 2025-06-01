@@ -2,37 +2,37 @@
 {
   "title": "GET: Goal-directed Exploration and Targeting for Large-Scale Unknown Environments",
   "description": "GET is a framework for object search that combines LLM reasoning with experience-based exploration, using DoUT for real-time decisions and a probabilistic task map for updating location priors, achieving superior performance in dynamic environments.",
-  "image": "_data/GET.jpeg",
+  "image": "./_data/GET.jpeg",
   "link": "https://arxiv.org/abs/2505.20828"
 },
 {
   "title": "Layer-wise feature refinement for accurate three-dimensional lane detection with enhanced bird’s eye view transformation",
   "description": "This work proposes a lightweight 3D lane detection method for autonomous driving using a dual-branch view transformation with deformable convolution and geometric priors, plus cross-attention with spatial encoding. Layer-wise BEV refinement improves multi-level feature use, yielding higher F1-scores than existing methods.",
-  "image": "_data/layerwise.jpeg",
+  "image": "./_data/layerwise.jpeg",
   "link": "https://www.sciencedirect.com/science/article/pii/S0952197625005858"
 },
 {
     "title": "Prior Does Matter: Visual Navigation via Denoising Diffusion Bridge Models",
     "description": "We propose a novel imitation learning framework for visual navigation using a diffusion bridge model, utilizing an informative prior action instead of Gaussian noise as the denoising start point to improve generation efficiency and performance.",
-    "image": "_data/navibridger.png",
+    "image": "./_data/navibridger.png",
     "link": "https://github.com/hren20/NaiviBridger"
   },
   {
     "title": "NaviDiffusor: Cost-Guided Diffusion Model for Visual Navigation",
     "description": "This work presents a hybrid visual navigation method combining classical planning with a conditional diffusion model using only RGB input. It guides path generation via gradient-based cost functions without retraining, enabling zero-shot generalization across diverse environments and outperforming baselines in success and safety.",
-    "image": "_data/navidiffusor.png",
+    "image": "./_data/navidiffusor.png",
     "link": "https://arxiv.org/abs/2504.10003"
   },
   {
     "title": "Refinement Bird’s Eye View Feature for 3D Lane Detection with Dual-Branch View Transformation Module",
     "description": "This paper proposes an efficient 3D lane detection method using a dual-branch view transformation with deformable convolutions and view relation modeling. An auxiliary head and progressive BEV refinement boost accuracy, achieving higher F1-scores and strong adaptability with low computational cost.",
-    "image": "_data/refinement.jpeg",
+    "image": "./_data/refinement.jpeg",
     "link": "https://ieeexplore.ieee.org/abstract/document/10448470"
   },
   {
     "title": "Adaptive Patchwork: Real-Time Ground Segmentation for 3D Point Cloud With Adaptive Partitioning and Spatial-Temporal Context",
     "description": "Adaptive Patchwork is a 3D LiDAR ground segmentation method that improves on Patchwork++ via adaptive partitioning, spatio-temporal correction, and multi-feature noise removal. It achieves higher accuracy and faster performance on SemanticKITTI and Koblenz datasets than state-of-the-art methods.",
-    "image": "_data/adaptivepatchwork.jpeg",
+    "image": "./_data/adaptivepatchwork.jpeg",
     "link": "https://ieeexplore.ieee.org/abstract/document/10251971"
   }
 ]

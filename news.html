@@ -51,7 +51,7 @@
         // 页面特定的加载函数
         async function loadNewsContent() {
             try {
-                const newsResponse = await fetch('_includes/news.json');
+                const newsResponse = await fetch('./_includes/news.json');
                 if (!newsResponse.ok) throw new Error(`Failed to load news: ${newsResponse.status}`);
                 const newsData = await newsResponse.json();
                 displayNews(newsData, 0, 'news-content'); // 0 表示显示所有
