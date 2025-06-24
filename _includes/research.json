@@ -1,4 +1,10 @@
 [
+  {
+    "title": "RAPID Hand: A Robust, Affordable, Perception-Integrated, Dexterous Manipulation Platform for Generalist Robot Autonomy",
+    "description": "RAPID Hand is a low-cost, 20-DoF robotic hand platform with integrated vision and tactile sensing, designed for precise teleoperation and high-quality data collection in dexterous manipulation tasks.",
+    "image": "./_data/RAPIDhand.jpeg",
+    "link": "https://arxiv.org/abs/2506.07490"
+  },
 {
   "title": "GET: Goal-directed Exploration and Targeting for Large-Scale Unknown Environments",
   "description": "GET is a framework for object search that combines LLM reasoning with experience-based exploration, using DoUT for real-time decisions and a probabilistic task map for updating location priors, achieving superior performance in dynamic environments.",
@@ -6,16 +12,16 @@
   "link": "https://arxiv.org/abs/2505.20828"
 },
 {
-  "title": "Layer-wise feature refinement for accurate three-dimensional lane detection with enhanced bird’s eye view transformation",
-  "description": "This work proposes a lightweight 3D lane detection method for autonomous driving using a dual-branch view transformation with deformable convolution and geometric priors, plus cross-attention with spatial encoding. Layer-wise BEV refinement improves multi-level feature use, yielding higher F1-scores than existing methods.",
-  "image": "./_data/layerwise.jpeg",
-  "link": "https://www.sciencedirect.com/science/article/pii/S0952197625005858"
-},
-{
     "title": "Prior Does Matter: Visual Navigation via Denoising Diffusion Bridge Models",
     "description": "We propose a novel imitation learning framework for visual navigation using a diffusion bridge model, utilizing an informative prior action instead of Gaussian noise as the denoising start point to improve generation efficiency and performance.",
     "image": "./_data/navibridger.png",
     "link": "https://github.com/hren20/NaiviBridger"
+  },
+  {
+    "title": "Layer-wise feature refinement for accurate three-dimensional lane detection with enhanced bird’s eye view transformation",
+    "description": "This work proposes a lightweight 3D lane detection method for autonomous driving using a dual-branch view transformation with deformable convolution and geometric priors, plus cross-attention with spatial encoding. Layer-wise BEV refinement improves multi-level feature use, yielding higher F1-scores than existing methods.",
+    "image": "./_data/layerwise.jpeg",
+    "link": "https://www.sciencedirect.com/science/article/pii/S0952197625005858"
   },
   {
     "title": "NaviDiffusor: Cost-Guided Diffusion Model for Visual Navigation",
