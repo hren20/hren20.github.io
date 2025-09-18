@@ -5,13 +5,13 @@
     "image": "./_data/RAPIDhand.jpeg",
     "link": "https://arxiv.org/abs/2506.07490"
   },
-{
-  "title": "GET: Goal-directed Exploration and Targeting for Large-Scale Unknown Environments",
-  "description": "GET is a framework for object search that combines LLM reasoning with experience-based exploration, using DoUT for real-time decisions and a probabilistic task map for updating location priors, achieving superior performance in dynamic environments.",
-  "image": "./_data/GET.jpeg",
-  "link": "https://arxiv.org/abs/2505.20828"
-},
-{
+  {
+    "title": "GET: Goal-directed Exploration and Targeting for Large-Scale Unknown Environments",
+    "description": "GET is a framework for object search that combines LLM reasoning with experience-based exploration, using DoUT for real-time decisions and a probabilistic task map for updating location priors, achieving superior performance in dynamic environments.",
+    "image": "./_data/GET.jpeg",
+    "link": "https://arxiv.org/abs/2505.20828"
+  },
+  {
     "title": "Prior Does Matter: Visual Navigation via Denoising Diffusion Bridge Models",
     "description": "We propose a novel imitation learning framework for visual navigation using a diffusion bridge model, utilizing an informative prior action instead of Gaussian noise as the denoising start point to improve generation efficiency and performance.",
     "image": "./_data/navibridger.png",
