@@ -18,16 +18,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --dark: #2c3e50;
-            --gray: #95a5a6;
+            --primary: #1f2a3a;
+            --secondary: #4b6ea8;
+            --accent: #7fa6ff;
+            --light: #ecf1f7;
+            --dark: #101825;
+            --gray: #8a96a3;
+            --matte-blue: #2e3b55;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-strong: rgba(255, 255, 255, 0.78);
+            --glass-border: rgba(255, 255, 255, 0.45);
+            --glass-shadow: 0 20px 40px rgba(16, 24, 40, 0.12);
+            --glass-highlight: rgba(255, 255, 255, 0.55);
+            --blur: 16px;
             --spacing: 2rem;
-            --border-radius: 8px;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            --transition: all 0.3s ease;
+            --border-radius: 16px;
+            --shadow: 0 12px 30px rgba(16, 24, 40, 0.12);
+            --transition: all 0.35s ease;
             --header-height: 70px;
         }
         
@@ -40,8 +47,11 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+            color: var(--dark);
+            background: radial-gradient(circle at top, rgba(127, 166, 255, 0.16), transparent 55%),
+                radial-gradient(circle at 20% 20%, rgba(52, 79, 122, 0.18), transparent 45%),
+                linear-gradient(135deg, #f1f4f9 0%, #e7edf6 45%, #f7f9fc 100%);
+            background-attachment: fixed;
             padding-top: var(--header-height);
         }
         
@@ -51,8 +61,10 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: white;
-            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.6);
+            box-shadow: var(--glass-shadow);
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(var(--blur));
             z-index: 1000;
             display: flex;
             justify-content: space-between;
@@ -122,7 +134,9 @@
         }
         
         header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, rgba(31, 42, 58, 0.95), rgba(75, 110, 168, 0.9));
+            background-size: 180% 180%;
+            animation: headerShift 12s ease infinite;
             color: white;
             padding: 100px 0 60px;
             text-align: center;
@@ -130,6 +144,7 @@
             overflow: hidden;
             margin-top: 20px;
             border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--glass-shadow);
         }
         
         header::before {
@@ -139,9 +154,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><polygon points="0,0 100,100 0,100" fill="rgba(255,255,255,0.1)"/></svg>');
-            background-size: 100% 100%;
-            opacity: 0.3;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.18), transparent 45%),
+                radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.12), transparent 50%);
+            opacity: 0.7;
         }
         
         .profile-container {
@@ -183,10 +198,9 @@
             width: 250px;
             height: 250px;
             border-radius: 50%;
-            border: 5px solid white;
-            box-shadow: var(--shadow);
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 18px 35px rgba(8, 15, 26, 0.25);
             margin-bottom: 20px;
-            /* background: linear-gradient(45deg, #3498db, #2c3e50); */
             background: none;
             display: flex;
             align-items: center;
@@ -265,13 +279,28 @@
         }
         
         .section {
-            background: white;
+            background: var(--glass-bg);
             border-radius: var(--border-radius);
-            box-shadow: var(--shadow);
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(var(--blur));
             padding: 30px;
             margin: 30px 0;
             transition: var(--transition);
             position: relative;
+            overflow: hidden;
+        }
+
+        .section::after {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 60%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.35), transparent 70%);
+            opacity: 0.6;
+            pointer-events: none;
         }
         
         .section:hover {
@@ -284,13 +313,13 @@
             align-items: center;
             margin-bottom: 25px;
             padding-bottom: 15px;
-            border-bottom: 2px solid var(--light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
             color: var(--primary);
         }
         
         .section-title i {
             margin-right: 15px;
-            background: var(--secondary);
+            background: rgba(75, 110, 168, 0.9);
             color: white;
             width: 40px;
             height: 40px;
@@ -298,6 +327,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 8px 18px rgba(28, 40, 66, 0.25);
         }
         
         .about-content {
@@ -314,17 +344,93 @@
             gap: 15px;
             margin-top: 20px;
         }
+
+        .experience-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .experience-item {
+            padding: 16px 18px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 24px rgba(31, 42, 58, 0.12);
+            backdrop-filter: blur(var(--blur));
+        }
+
+        .experience-header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .experience-company {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--primary);
+        }
+
+        .experience-position {
+            font-weight: 600;
+            color: var(--matte-blue);
+        }
+
+        .experience-meta {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        .experience-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            line-height: 1.7;
+            color: var(--dark);
+            font-size: 0.98rem;
+        }
+
+        .experience-duties {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .experience-duties li {
+            margin-bottom: 6px;
+        }
+
+        .experience-supervisor {
+            font-size: 0.95rem;
+            color: var(--gray);
+            font-style: italic;
+            margin: 0;
+        }
+
+        .experience-supervisor a {
+            color: rgba(127, 166, 255, 0.85);
+            text-decoration: none;
+        }
+
+        .experience-supervisor a:hover {
+            color: rgba(127, 166, 255, 1);
+        }
         
         .link-btn {
             display: inline-flex;
             align-items: center;
             padding: 10px 20px;
-            background: var(--light);
+            background: rgba(255, 255, 255, 0.55);
             border-radius: 30px;
             color: var(--dark);
             text-decoration: none;
             transition: var(--transition);
             font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(var(--blur));
         }
         
         .link-btn i {
@@ -332,13 +438,14 @@
         }
         
         .link-btn:hover {
-            background: var(--secondary);
+            background: rgba(75, 110, 168, 0.85);
             color: white;
+            transform: translateY(-2px);
         }
         
         .news-item {
             padding: 15px 0;
-            border-bottom: 1px solid var(--light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
         }
         
         .news-item:last-child {
@@ -370,11 +477,12 @@
         .research-card {
             display: flex;
             align-items: center;
-            border: 1px solid var(--light);
+            border: 1px solid rgba(255, 255, 255, 0.5);
             border-radius: var(--border-radius);
             overflow: hidden;
             transition: var(--transition);
-            background: white;
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(var(--blur));
         }
 
         .research-card:hover {
@@ -389,7 +497,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: white; /* optional background */
+            background: transparent;
             padding: 10px;
         }
         
@@ -475,7 +583,7 @@
         
         .publication-item {
             padding: 20px 0 20px 60px;
-            border-bottom: 1px solid var(--light);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
             position: relative;
         }
         
@@ -491,13 +599,14 @@
             top: 20px;
             width: 40px;
             height: 40px;
-            background: var(--light);
+            background: rgba(255, 255, 255, 0.7);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
             color: var(--primary);
+            box-shadow: 0 8px 16px rgba(16, 24, 40, 0.18);
         }
         
         .publication-title {
@@ -545,16 +654,17 @@
             display: inline-flex;
             align-items: center;
             padding: 10px 25px;
-            background: var(--secondary);
+            background: linear-gradient(135deg, rgba(75, 110, 168, 0.95), rgba(31, 42, 58, 0.95));
             color: white;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 500;
             transition: var(--transition);
+            box-shadow: 0 12px 24px rgba(31, 42, 58, 0.25);
         }
         
         .more-btn:hover {
-            background: var(--primary);
+            background: linear-gradient(135deg, rgba(31, 42, 58, 0.98), rgba(75, 110, 168, 0.9));
             transform: translateY(-3px);
         }
         
@@ -563,9 +673,11 @@
             padding: 40px 0;
             color: var(--gray);
             font-size: 0.9rem;
-            background: white;
+            background: rgba(255, 255, 255, 0.65);
             margin-top: 40px;
             border-radius: var(--border-radius) var(--border-radius) 0 0;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(var(--blur));
         }
         
         @media (max-width: 992px) {
@@ -640,13 +752,13 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.6);
             border-radius: 50px;
             padding: 20px 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--glass-shadow);
             transition: all 0.4s ease;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(236, 240, 241, 0.8);
+            backdrop-filter: blur(var(--blur));
+            border: 1px solid var(--glass-border);
         }
         
         .section-nav:hover {
@@ -675,16 +787,16 @@
         }
         
         .section-nav a:hover {
-            background: var(--light);
+            background: rgba(255, 255, 255, 0.7);
             color: var(--secondary);
         }
         
         .section-nav a.active {
-            background: var(--secondary);
+            background: rgba(75, 110, 168, 0.9);
             color: white;
             font-weight: bold;
             transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(52, 152, 219, 0.3);
+            box-shadow: 0 8px 18px rgba(52, 79, 122, 0.35);
         }
         
         .section-nav a.active i {
@@ -706,9 +818,21 @@
             transform: translateY(-50%);
             width: 8px;
             height: 8px;
-            background: var(--secondary);
+            background: rgba(127, 166, 255, 0.9);
             border-radius: 50%;
             animation: pulse 1.5s infinite;
+        }
+
+        @keyframes headerShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
         
         /* 响应式调整 */
@@ -786,6 +910,10 @@
             <i class="fas fa-briefcase"></i>
             <span>Professional Activities</span>
         </a>
+        <a href="#experience" data-section="experience">
+            <i class="fas fa-briefcase"></i>
+            <span>Experience</span>
+        </a>
         <a href="#contact" data-section="contact">
             <i class="fas fa-envelope"></i>
             <span>Contact</span>
@@ -820,7 +948,7 @@
                 <span>Biography</span>
             </h2>
             <div class="about-content">
-                <p>Hao Ren is a Ph.D. student in the School of Computer Science and Engineering at Sun Yat-sen University. His research focuses on computer vision, embodied AI and artificial intelligence.
+                <p>Hao Ren is a Ph.D. student in the School of Computer Science and Engineering at Sun Yat-sen University. His research focuses on embodied AI, generative models and spatial intelligence.
                     He received his B.S. in Electronic Information Engineering from Xidian University, the M.S. degree in Computer Technology from Shaanxi University of Science & Technology. He is currently pursuing his Ph.D. degree at Sun Yat-sen University. He has published several papers in top-tier conferences and journals such as CVPR, NeurIPS, ICRA, IEEE RA-L and EAAI.
                     He is an active member of the academic community, serving as a reviewer for several conferences and journals.</p>
             </div>
@@ -882,7 +1010,7 @@
         </h2>
 
         <div class="about-content">
-            <p class="subtle">He has contributed peer-review service to several conferences and journals, including CVPR, NeurIPS, AAAI, ICRA, and IEEE RA-L.</p>
+            <p class="subtle">He has contributed peer-review service to several conferences and journals, including CVPR, NeurIPS, ICLR, AAAI, ICRA, and IEEE RA-L.</p>
         </div>
 
         <div class="links">
@@ -891,6 +1019,51 @@
             <a href="https://scholar.google.com/..." class="link-btn"><i class="fas fa-graduation-cap"></i> Google Scholar</a>
             -->
         </div>
+        </section>
+
+        <section class="section" id="experience">
+            <h2 class="section-title">
+                <i class="fas fa-briefcase"></i>
+                <span>Experience</span>
+            </h2>
+
+            <div class="experience-list">
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <span class="experience-company">Insta360</span>
+                        <span class="experience-meta">Shenzhen · 2025.11 - Present</span>
+                    </div>
+                    <div class="experience-details">
+                        <div class="experience-position">Research Intern</div>
+                        <ul class="experience-duties">
+                            <li>Spatial intelligence, VLA</li>
+                        </ul>
+                        <p class="experience-supervisor">Supervisor: <a href="https://cn.linkedin.com/in/dizhezhang" target="_blank" rel="noopener">Dizhe Zhang</a>, <a href="http://luqi.info/" target="_blank" rel="noopener">Lu Qi</a></p>
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <div class="experience-header">
+                        <span class="experience-company">DECH FUTURE</span>
+                        <span class="experience-meta">Xi'an · 2022.08 - 2024.02</span>
+                    </div>
+                    <div class="experience-details">
+                        <div class="experience-position">Research Intern</div>
+                        <ul class="experience-duties">
+                            <li>LiDAR Perception, Lane Detection</li>
+                            <li>Multi-modal Sensor Perception System</li>
+                            <li>Integrated Cruise Control System</li>
+                        </ul>
+                        <p class="experience-supervisor">Supervisor: <a href="#" target="_blank" rel="noopener">Wenpeng Li</a>, <a href="#" target="_blank" rel="noopener">Chen Liu</a></p>
+                    </div>
+                </div>
+                <!-- <div class="experience-item">
+                    <div class="experience-header">
+                        <span class="experience-role"> Study Program</span>
+                        <span class="experience-meta">School/Lab · Major · 2021.09 – 2024.06</span>
+                    </div>
+                    <p class="experience-desc">research field, project highlights, or representative achievements.</p>
+                </div> -->
+            </div>
         </section>
 
         <section class="section" id="contact">
@@ -936,10 +1109,11 @@
                 const researchData = await researchResponse.json();
                 displayResearch(researchData, 3, 'research-content');
                 
-                // 加载出版物
-                const publicationsResponse = await fetch('./_includes/publications.json');
+                // 加载出版物（BibTeX）
+                const publicationsResponse = await fetch('./_includes/publications.bib');
                 if (!publicationsResponse.ok) throw new Error(`Failed to load publications: ${publicationsResponse.status}`);
-                const publicationsData = await publicationsResponse.json();
+                const publicationsText = await publicationsResponse.text();
+                const publicationsData = parseBibTex(publicationsText);
                 displayPublications(publicationsData, 5, 'publications-content');
                 
             } catch (error) {
@@ -962,6 +1136,87 @@
                 `;
             }
         }
+        function normalizeAuthorName(author) {
+            const trimmed = author.trim();
+            if (!trimmed) return '';
+            if (trimmed.includes(',')) {
+                const [last, first] = trimmed.split(',').map(part => part.trim());
+                return first ? `${first} ${last}` : last;
+            }
+            return trimmed;
+        }
+
+        function normalizeAuthors(authorField) {
+            if (!authorField) return '';
+            return authorField
+                .split(/\s+and\s+/i)
+                .map(normalizeAuthorName)
+                .filter(Boolean)
+                .join(', ');
+        }
+
+        function parseBibFields(fieldsText) {
+            const fields = {};
+            const fieldRegex = /(\w+)\s*=\s*(\{([\s\S]*?)\}|\"([\s\S]*?)\"|([^,]+))\s*,?/g;
+            let match;
+            while ((match = fieldRegex.exec(fieldsText)) !== null) {
+                const key = match[1].toLowerCase();
+                const value = (match[3] || match[4] || match[5] || '')
+                    .replace(/[{}]/g, '')
+                    .replace(/\s+/g, ' ')
+                    .trim();
+                fields[key] = value;
+            }
+            return fields;
+        }
+
+        function parseBibTex(bibText) {
+            const cleaned = bibText.replace(/^\s*\[/, '').replace(/\]\s*$/, '').trim();
+            const entries = [];
+            let cursor = 0;
+            while (cursor < cleaned.length) {
+                const atIndex = cleaned.indexOf('@', cursor);
+                if (atIndex === -1) break;
+                const braceStart = cleaned.indexOf('{', atIndex);
+                if (braceStart === -1) break;
+                let depth = 0;
+                let endIndex = braceStart;
+                for (; endIndex < cleaned.length; endIndex++) {
+                    const char = cleaned[endIndex];
+                    if (char === '{') depth += 1;
+                    if (char === '}') {
+                        depth -= 1;
+                        if (depth === 0) {
+                            endIndex += 1;
+                            break;
+                        }
+                    }
+                }
+                const entryText = cleaned.slice(atIndex, endIndex);
+                cursor = endIndex;
+                const entryMatch = entryText.match(/^@(\w+)\s*{\s*([^,]+)\s*,([\s\S]*)\}\s*$/);
+                if (!entryMatch) continue;
+                const entryType = entryMatch[1].toLowerCase();
+                const fieldsText = entryMatch[3];
+                const fields = parseBibFields(fieldsText);
+                const yearValue = parseInt(fields.year, 10);
+                entries.push({
+                    type: entryType,
+                    title: fields.title || '',
+                    authors: normalizeAuthors(fields.author),
+                    journal: fields.journal || fields.booktitle || '',
+                    year: Number.isFinite(yearValue) ? yearValue : fields.year || '',
+                    volume: fields.volume || '',
+                    number: fields.number || '',
+                    pages: fields.pages || '',
+                    pdf: fields.pdf || '',
+                    code: fields.code || '',
+                    project: fields.project || ''
+                });
+            }
+            return entries;
+        }
+
         // 显示新闻
         function displayNews(newsData, count, containerId) {
             const newsContainer = document.getElementById(containerId);
@@ -1089,17 +1344,19 @@
             recentPublications.forEach((pub, index) => {
                 const pubItem = document.createElement('div');
                 pubItem.className = 'publication-item';
-                const authorHighlighted = pub.authors.replace(/\bHao Ren\b/g, '<strong class="highlight-author">Hao Ren</strong>');
+                const authorText = pub.authors || '';
+                const authorHighlighted = authorText.replace(/\bHao Ren\b/g, '<strong class="highlight-author">Hao Ren</strong>');
                 // 生成链接HTML（如果存在）
                 let linksHTML = '';
                 if (pub.pdf) linksHTML += `<a href="${pub.pdf}" class="publication-link"><i class="far fa-file-pdf"></i> PDF</a>`;
                 if (pub.code) linksHTML += `<a href="${pub.code}" class="publication-link"><i class="fab fa-github"></i> Code</a>`;
                 if (pub.project) linksHTML += `<a href="${pub.project}" class="publication-link"><i class="fas fa-external-link-alt"></i> Project</a>`;
+                const venueParts = [pub.journal, pub.year].filter(Boolean).join(', ');
                 
                 pubItem.innerHTML = `
                     <div class="publication-title">${pub.title}</div>
                     <div class="publication-authors">${authorHighlighted}</div>
-                    <div>${pub.journal}, ${pub.year}</div>
+                    <div>${venueParts}</div>
                     ${linksHTML ? `<div class="publication-details">${linksHTML}</div>` : ''}
                 `;
                 pubList.appendChild(pubItem);
