@@ -532,50 +532,6 @@
                 max-height: 250px;
             }
         }
-
-        /* .research-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 20px;
-        }
-        
-        .research-card {
-            border: 1px solid var(--light);
-            border-radius: var(--border-radius);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-        
-        .research-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .research-image {
-            height: 180px;
-            background: var(--secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 3rem;
-        }
-        
-        .research-content {
-            padding: 20px;
-        }
-        
-        .research-title {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-        
-        .research-desc {
-            color: var(--gray);
-            margin-bottom: 15px;
-        } */
         
         .publication-list {
             counter-reset: publication-counter;
@@ -1010,7 +966,8 @@
         </h2>
 
         <div class="about-content">
-            <p class="subtle">He has contributed peer-review service to several conferences and journals, including CVPR, ECCV, ICML, NeurIPS, ICLR, AAAI, ICRA, and IEEE RA-L.</p>
+            <p><strong>Journals:</strong> TPAMI, IEEE RA-L.</p>
+            <p><strong>Conferences:</strong> CVPR, ECCV, ICML, NeurIPS, ICLR, AAAI, ICRA.</p>
         </div>
 
         <div class="links">
@@ -1056,13 +1013,6 @@
                         <p class="experience-supervisor">Supervisor: <a href="#" target="_blank" rel="noopener">Wenpeng Li</a>, <a href="#" target="_blank" rel="noopener">Chen Liu</a></p>
                     </div>
                 </div>
-                <!-- <div class="experience-item">
-                    <div class="experience-header">
-                        <span class="experience-role"> Study Program</span>
-                        <span class="experience-meta">School/Lab · Major · 2021.09 – 2024.06</span>
-                    </div>
-                    <p class="experience-desc">research field, project highlights, or representative achievements.</p>
-                </div> -->
             </div>
         </section>
 
@@ -1240,40 +1190,7 @@
                 newsContainer.appendChild(newsItem);
             });
         }
-        // 显示研究项目
-        // function displayResearch(researchData, count, containerId) {
-        //     const researchContainer = document.getElementById(containerId);
-        //     researchContainer.innerHTML = '';
-            
-        //     // 创建网格容器
-        //     const researchGrid = document.createElement('div');
-        //     researchGrid.className = 'research-grid';
-        //     researchContainer.appendChild(researchGrid);
-            
-        //     // 只显示最新的指定数量的研究项目
-        //     const recentResearch = researchData.slice(0, count);
-            
-        //     if (recentResearch.length === 0) {
-        //         researchGrid.innerHTML = '<p>No research projects available</p>';
-        //         return;
-        //     }
-            
-        //     recentResearch.forEach(research => {
-        //         const researchCard = document.createElement('div');
-        //         researchCard.className = 'research-card';
-        //         researchCard.innerHTML = `
-        //             <div class="research-image">
-        //                 <i class="${research.icon || 'fas fa-flask'}"></i>
-        //             </div>
-        //             <div class="research-content">
-        //                 <h3 class="research-title">${research.title}</h3>
-        //                 <p class="research-desc">${research.description}</p>
-        //                 <a href="${research.link || '#'}" class="link-btn"><i class="fas fa-arrow-right"></i> Learn More</a>
-        //             </div>
-        //         `;
-        //         researchGrid.appendChild(researchCard);
-        //     });
-        // }
+
         function displayResearch(researchData, count, containerId) {
             const researchContainer = document.getElementById(containerId);
             if (!researchContainer) return;
