@@ -570,6 +570,42 @@
             margin-bottom: 8px;
             color: var(--dark);
         }
+
+        .pub-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            margin-right: 8px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            border: 1px solid transparent;
+        }
+
+        .pub-badge.highlight {
+            background: #e0c072;
+            color: #ffffff;
+            border-color: #c7a04a;
+        }
+
+        .pub-badge.oral {
+            background: #b31b1b;
+            color: #ffffff;
+            border-color: #8f1414;
+        }
+
+        .pub-badge.poster {
+            background: #1f3b8c;
+            color: #ffffff;
+            border-color: #152a63;
+        }
+
+        .pub-badge.journal {
+            background: #4c9a5f;
+            color: #ffffff;
+            border-color: #3a7d4a;
+        }
         
         .publication-authors {
             color: var(--gray);
@@ -967,7 +1003,7 @@
 
         <div class="about-content">
             <p><strong>Journals:</strong> TPAMI, IEEE RA-L.</p>
-            <p><strong>Conferences:</strong> CVPR, ECCV, ICML, NeurIPS, ICLR, AAAI, ICRA.</p>
+            <p><strong>Conferences:</strong> CVPR, ECCV, ICML, NeurIPS, ICLR, AAAI, ICRA, IROS.</p>
         </div>
 
         <div class="links">
@@ -1150,6 +1186,16 @@
                 const fieldsText = entryMatch[3];
                 const fields = parseBibFields(fieldsText);
                 const yearValue = parseInt(fields.year, 10);
+                const highlightFlag = (fields.highlight || '').toLowerCase();
+                const oralFlag = (fields.oral || '').toLowerCase();
+                const posterFlag = (fields.poster || '').toLowerCase();
+                const journalBadgeFlag = (fields.journal_badge || fields.journalbadge || '').toLowerCase();
+                const noteField = (fields.note || '').toLowerCase();
+                const isHighlight = ['true', 'yes', '1'].includes(highlightFlag) || noteField.includes('highlight');
+                const isOral = ['true', 'yes', '1'].includes(oralFlag) || noteField.includes('oral');
+                const isPoster = ['true', 'yes', '1'].includes(posterFlag) || noteField.includes('poster');
+                const isJournalBadge = ['true', 'yes', '1'].includes(journalBadgeFlag) || noteField.includes('journal');
+
                 entries.push({
                     type: entryType,
                     title: fields.title || '',
@@ -1161,7 +1207,11 @@
                     pages: fields.pages || '',
                     pdf: fields.pdf || '',
                     code: fields.code || '',
-                    project: fields.project || ''
+                    project: fields.project || '',
+                    highlight: isHighlight,
+                    oral: isOral,
+                    poster: isPoster,
+                    journalBadge: isJournalBadge
                 });
             }
             return entries;
@@ -1270,8 +1320,14 @@
                 if (pub.project) linksHTML += `<a href="${pub.project}" class="publication-link"><i class="fas fa-external-link-alt"></i> Project</a>`;
                 const venueParts = [pub.journal, pub.year].filter(Boolean).join(', ');
                 
+                const badges = [
+                    pub.highlight ? '<span class="pub-badge highlight">Highlight Paper</span>' : '',
+                    pub.oral ? '<span class="pub-badge oral">Oral</span>' : '',
+                    pub.poster ? '<span class="pub-badge poster">Poster</span>' : '',
+                    pub.journalBadge ? '<span class="pub-badge journal">Journal</span>' : ''
+                ].filter(Boolean).join('');
                 pubItem.innerHTML = `
-                    <div class="publication-title">${pub.title}</div>
+                    <div class="publication-title">${badges}${pub.title}</div>
                     <div class="publication-authors">${authorHighlighted}</div>
                     <div>${venueParts}</div>
                     ${linksHTML ? `<div class="publication-details">${linksHTML}</div>` : ''}
