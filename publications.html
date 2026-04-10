@@ -590,7 +590,7 @@
                 const authorHighlighted = authorText.replace(/\bHao Ren\b/g, '<strong class="highlight-author">Hao Ren</strong>');
                 const venueParts = [pub.journal, pub.year].filter(Boolean).join(', ');
                 const badges = [
-                    pub.highlight ? '<span class="pub-badge highlight">Highlight Paper</span>' : '',
+                    pub.highlight ? '<span class="pub-badge highlight">Highlight</span>' : '',
                     pub.oral ? '<span class="pub-badge oral">Oral</span>' : '',
                     pub.poster ? '<span class="pub-badge poster">Poster</span>' : '',
                     pub.journalBadge ? '<span class="pub-badge journal">Journal</span>' : ''
