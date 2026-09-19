@@ -337,7 +337,51 @@
         .about-content p {
             margin-bottom: 15px;
         }
-        
+
+        .awards-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .award-item {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: start;
+            gap: 16px;
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .award-item:first-child {
+            padding-top: 0;
+        }
+
+        .award-item:last-child {
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .award-title {
+            color: var(--dark);
+            line-height: 1.65;
+        }
+
+        .award-title strong {
+            color: var(--primary);
+        }
+
+        .award-detail {
+            color: var(--gray);
+        }
+
+        .award-date {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.65;
+            text-align: right;
+            white-space: nowrap;
+        }
+
         .links {
             display: flex;
             flex-wrap: wrap;
@@ -571,6 +615,22 @@
             color: var(--dark);
         }
 
+        .publication-title {
+            line-height: 1.8;
+        }
+
+        .publication-venue {
+            color: var(--gray);
+            margin-top: 6px;
+        }
+
+        .pub-inline-note {
+            display: inline;
+            margin: 0 0.4em;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
         .pub-badge {
             display: inline-flex;
             align-items: center;
@@ -718,6 +778,15 @@
             .section {
                 padding: 20px;
             }
+
+            .award-item {
+                grid-template-columns: 1fr;
+                gap: 2px;
+            }
+
+            .award-date {
+                text-align: left;
+            }
         }
         
         @media (max-width: 576px) {
@@ -735,6 +804,10 @@
             }
         }
         /* === ENHANCED VERTICAL SECTION NAV === */
+        .section-nav-edge-trigger {
+            display: none;
+        }
+
         .section-nav {
             position: fixed;
             top: 50%;
@@ -827,22 +900,122 @@
             }
         }
         
-        /* 响应式调整 */
-        @media (max-width: 1200px) {
+        /* 响应式调整：窄屏时收缩为图标栏，避免覆盖正文 */
+        @media (max-width: 1760px), (max-height: 720px) {
             .section-nav {
-                padding: 15px 8px;
-                right: 10px;
+                padding: 10px 6px;
+                right: 8px;
+                gap: 8px;
             }
             
             .section-nav a {
-                padding: 10px 15px;
-                font-size: 0.85rem;
+                width: 42px;
+                height: 42px;
+                justify-content: center;
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+
+            .section-nav a span {
+                display: none;
+            }
+
+            .section-nav a i {
+                margin-right: 0;
+            }
+
+            .section-nav:hover {
+                width: min(360px, calc(100vw - 32px));
+                max-width: calc(100vw - 32px);
+                max-height: calc(100vh - 32px);
+                overflow-x: hidden;
+                overflow-y: auto;
+                padding: 20px 10px;
+                gap: 15px;
+                transform: translateY(-50%) scale(1.01);
+            }
+
+            .section-nav:hover a {
+                width: auto;
+                height: auto;
+                justify-content: flex-start;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+                white-space: normal;
+            }
+
+            .section-nav:hover a span {
+                display: inline;
+            }
+
+            .section-nav:hover a i {
+                margin-right: 10px;
             }
         }
-        
-        @media (max-width: 992px) {
+
+        @media (min-width: 993px) and (max-width: 1760px),
+               (min-width: 993px) and (max-height: 720px) {
+            .container {
+                padding-right: 76px;
+            }
+        }
+
+        @media (max-width: 992px), (max-height: 560px) {
+            .section-nav-edge-trigger {
+                display: block;
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 24px;
+                height: 100vh;
+                z-index: 899;
+            }
+
             .section-nav {
-                display: none;
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+                transform: translate(100%, -50%);
+            }
+
+            .section-nav-edge-trigger:hover + .section-nav,
+            .section-nav:hover {
+                display: flex;
+                width: min(360px, calc(100vw - 32px));
+                max-width: calc(100vw - 32px);
+                max-height: calc(100vh - 32px);
+                overflow-x: hidden;
+                overflow-y: auto;
+                opacity: 1;
+                visibility: visible;
+                pointer-events: auto;
+                transform: translateY(-50%);
+                padding: 20px 10px;
+                gap: 15px;
+            }
+
+            .section-nav-edge-trigger:hover + .section-nav a,
+            .section-nav:hover a {
+                width: auto;
+                height: auto;
+                justify-content: flex-start;
+                padding: 12px 20px;
+                font-size: 0.9rem;
+                white-space: normal;
+            }
+
+            .section-nav-edge-trigger:hover + .section-nav a span,
+            .section-nav:hover a span {
+                display: inline;
+            }
+
+            .section-nav-edge-trigger:hover + .section-nav a i,
+            .section-nav:hover a i {
+                margin-right: 10px;
+            }
+
+            .container {
+                padding-right: 20px;
             }
         }
         
@@ -877,36 +1050,41 @@
     </nav>
 
     <!-- === ENHANCED SECTION NAVIGATION === -->
+    <div class="section-nav-edge-trigger" aria-hidden="true"></div>
     <nav class="section-nav" aria-label="Section navigation">
-        <a href="#home" data-section="home">
+        <a href="#home" data-section="home" title="Home">
             <i class="fas fa-home"></i>
             <span>Home</span>
         </a>
-        <a href="#about" data-section="about">
+        <a href="#about" data-section="about" title="Biography">
             <i class="fas fa-user"></i>
             <span>Biography</span>
         </a>
-        <a href="#news" data-section="news">
+        <a href="#news" data-section="news" title="Latest News">
             <i class="fas fa-newspaper"></i>
             <span>Latest News</span>
         </a>
-        <a href="#research" data-section="research">
+        <a href="#research" data-section="research" title="Research">
             <i class="fas fa-flask"></i>
             <span>Research</span>
         </a>
-        <a href="#publications" data-section="publications">
+        <a href="#publications" data-section="publications" title="Publications">
             <i class="fas fa-book"></i>
             <span>Publications</span>
         </a>
-        <a href="#professional-activities" data-section="professional-activities">
+        <a href="#honors-awards" data-section="honors-awards" title="Honors and Awards">
+            <i class="fas fa-trophy"></i>
+            <span>Honors and Awards</span>
+        </a>
+        <a href="#professional-activities" data-section="professional-activities" title="Professional Activities">
             <i class="fas fa-briefcase"></i>
             <span>Professional Activities</span>
         </a>
-        <a href="#experience" data-section="experience">
+        <a href="#experience" data-section="experience" title="Experience">
             <i class="fas fa-briefcase"></i>
             <span>Experience</span>
         </a>
-        <a href="#contact" data-section="contact">
+        <a href="#contact" data-section="contact" title="Contact">
             <i class="fas fa-envelope"></i>
             <span>Contact</span>
         </a>
@@ -941,7 +1119,7 @@
             </h2>
             <div class="about-content">
                 <p>Hao Ren is a Ph.D. candidate in the School of Computer Science and Engineering at Sun Yat-sen University. His research focuses on embodied AI, generative models and spatial intelligence.
-                    He received his B.S. in Electronic Information Engineering from Xidian University, the M.S. degree in Computer Technology from Shaanxi University of Science & Technology. He is currently pursuing his Ph.D. degree at Sun Yat-sen University. He has published several papers in top-tier conferences and journals such as CVPR, ICML, NeurIPS, ICRA and IEEE RA-L.
+                    He received his B.S. in Electronic Information Engineering from Xidian University, the M.S. degree in Computer Technology from Shaanxi University of Science & Technology. He is currently pursuing his Ph.D. degree at Sun Yat-sen University. He has published several papers in top-tier conferences and journals such as CVPR, ECCV, ICML, NeurIPS, ICRA and IEEE RA-L.
                     He is an active member of the academic community, serving as a reviewer for several conferences and journals.</p>
             </div>
             <div class="links">
@@ -992,6 +1170,18 @@
             </div>
             <div class="section-footer">
                 <a href="publications.html" class="more-btn">View All Publications <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </section>
+
+        <section class="section" id="honors-awards">
+            <h2 class="section-title">
+                <i class="fas fa-trophy"></i>
+                <span>Honors and Awards</span>
+            </h2>
+            <div id="honors-awards-content">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading honors and awards...
+                </div>
             </div>
         </section>
 
@@ -1087,13 +1277,20 @@
                 const newsResponse = await fetch('./_includes/news.json');
                 if (!newsResponse.ok) throw new Error(`Failed to load news: ${newsResponse.status}`);
                 const newsData = await newsResponse.json();
-                displayNews(newsData, 5, 'news-content');
+                const homepageNews = selectHomepageNewsItems(newsData, 5);
+                displayNews(homepageNews, 5, 'news-content');
                 
                 // 加载研究项目
                 const researchResponse = await fetch('./_includes/research.json');
                 if (!researchResponse.ok) throw new Error(`Failed to load research: ${researchResponse.status}`);
                 const researchData = await researchResponse.json();
                 displayResearch(researchData, 3, 'research-content');
+
+                // 加载荣誉与奖励
+                const honorsResponse = await fetch('./_includes/honors.json');
+                if (!honorsResponse.ok) throw new Error(`Failed to load honors: ${honorsResponse.status}`);
+                const honorsData = await honorsResponse.json();
+                displayHonors(honorsData, 'honors-awards-content');
                 
                 // 加载出版物（BibTeX）
                 const publicationsResponse = await fetch('./_includes/publications.bib');
@@ -1113,6 +1310,11 @@
                 document.getElementById('research-content').innerHTML = `
                     <div class="error-message">
                         <p><strong>Error loading research:</strong> ${error.message}</p>
+                    </div>
+                `;
+                document.getElementById('honors-awards-content').innerHTML = `
+                    <div class="error-message">
+                        <p><strong>Error loading honors and awards:</strong> ${error.message}</p>
                     </div>
                 `;
                 document.getElementById('publications-content').innerHTML = `
@@ -1143,17 +1345,166 @@
 
         function parseBibFields(fieldsText) {
             const fields = {};
-            const fieldRegex = /(\w+)\s*=\s*(\{([\s\S]*?)\}|\"([\s\S]*?)\"|([^,]+))\s*,?/g;
-            let match;
-            while ((match = fieldRegex.exec(fieldsText)) !== null) {
-                const key = match[1].toLowerCase();
-                const value = (match[3] || match[4] || match[5] || '')
-                    .replace(/[{}]/g, '')
-                    .replace(/\s+/g, ' ')
-                    .trim();
+            let index = 0;
+
+            while (index < fieldsText.length) {
+                while (index < fieldsText.length && /[\s,]/.test(fieldsText[index])) index += 1;
+                if (index >= fieldsText.length) break;
+
+                const keyStart = index;
+                while (index < fieldsText.length && /[\w-]/.test(fieldsText[index])) index += 1;
+                const key = fieldsText.slice(keyStart, index).trim().toLowerCase();
+                while (index < fieldsText.length && /\s/.test(fieldsText[index])) index += 1;
+                if (!key || fieldsText[index] !== '=') {
+                    index += 1;
+                    continue;
+                }
+
+                index += 1;
+                while (index < fieldsText.length && /\s/.test(fieldsText[index])) index += 1;
+
+                let value = '';
+                if (fieldsText[index] === '{') {
+                    index += 1;
+                    let depth = 1;
+                    const valueStart = index;
+                    while (index < fieldsText.length && depth > 0) {
+                        if (fieldsText[index] === '{') depth += 1;
+                        if (fieldsText[index] === '}') depth -= 1;
+                        if (depth > 0) index += 1;
+                    }
+                    value = fieldsText.slice(valueStart, index).trim();
+                    if (fieldsText[index] === '}') index += 1;
+                } else if (fieldsText[index] === '[') {
+                    index += 1;
+                    let depth = 1;
+                    const valueStart = index;
+                    while (index < fieldsText.length && depth > 0) {
+                        if (fieldsText[index] === '[') depth += 1;
+                        if (fieldsText[index] === ']') depth -= 1;
+                        if (depth > 0) index += 1;
+                    }
+                    value = `[${fieldsText.slice(valueStart, index).trim()}]`;
+                    if (fieldsText[index] === ']') index += 1;
+                } else if (fieldsText[index] === '"') {
+                    index += 1;
+                    const valueStart = index;
+                    while (index < fieldsText.length && fieldsText[index] !== '"') index += 1;
+                    value = fieldsText.slice(valueStart, index).trim();
+                    if (fieldsText[index] === '"') index += 1;
+                } else {
+                    const valueStart = index;
+                    while (index < fieldsText.length && fieldsText[index] !== ',') index += 1;
+                    value = fieldsText.slice(valueStart, index).trim();
+                }
+
                 fields[key] = value;
             }
             return fields;
+        }
+
+        function parsePublicationAnnotations(rawValue) {
+            if (!rawValue) return [];
+
+            const text = String(rawValue).trim();
+            if (!text) return [];
+
+            let parsed;
+            try {
+                parsed = JSON.parse(text);
+            } catch (error) {
+                const sanitized = text
+                    .replace(/,\s*([}\]])/g, '$1')
+                    .replace(/([{,]\s*)([A-Za-z_]\w*)\s*:/g, '$1"$2":')
+                    .replace(/'([^'\\]*(?:\\.[^'\\]*)*)'/g, '"$1"');
+                try {
+                    parsed = JSON.parse(sanitized);
+                } catch (innerError) {
+                    console.warn('Invalid publication annotations format:', rawValue);
+                    return [];
+                }
+            }
+
+            const annotations = Array.isArray(parsed) ? parsed : [parsed];
+            return annotations
+                .map(annotation => ({
+                    text: (annotation && annotation.text ? String(annotation.text) : '').trim(),
+                    color: (annotation && annotation.color ? String(annotation.color) : '').trim(),
+                    position: ((annotation && (annotation.position || annotation.slot)) ? String(annotation.position || annotation.slot) : 'after-title').trim().toLowerCase(),
+                    order: Number.isFinite(Number(annotation && annotation.order)) ? Number(annotation.order) : 0
+                }))
+                .filter(annotation => annotation.text);
+        }
+
+        function renderPublicationAnnotations(annotations, position) {
+            if (!Array.isArray(annotations) || annotations.length === 0) return '';
+
+            return annotations
+                .filter(annotation => annotation.position === position)
+                .sort((left, right) => left.order - right.order)
+                .map(annotation => {
+                    const style = annotation.color ? ` style="color: ${annotation.color};"` : '';
+                    return `<span class="pub-inline-note"${style}>${annotation.text}</span>`;
+                })
+                .join('');
+        }
+
+        function buildPublicationTitleHTML(pub) {
+            const badges = [
+                pub.highlight ? '<span class="pub-badge highlight">Highlight</span>' : '',
+                pub.oral ? '<span class="pub-badge oral">Oral</span>' : '',
+                pub.poster ? '<span class="pub-badge poster">Poster</span>' : '',
+                pub.journalBadge ? '<span class="pub-badge journal">Journal</span>' : ''
+            ].filter(Boolean).join('');
+
+            return `${renderPublicationAnnotations(pub.annotations, 'top')}${renderPublicationAnnotations(pub.annotations, 'before-title')}${badges}${pub.title}${renderPublicationAnnotations(pub.annotations, 'after-title')}`;
+        }
+
+        function buildPublicationMetaHTML(pub, linksHTML, authorsHTML = pub.authors) {
+            const authorsLine = `${renderPublicationAnnotations(pub.annotations, 'before-authors')}${authorsHTML}${renderPublicationAnnotations(pub.annotations, 'after-authors')}`;
+            const venueText = [pub.journal, pub.year].filter(Boolean).join(', ');
+            const venueHTML = `${renderPublicationAnnotations(pub.annotations, 'before-venue')}${venueText}${renderPublicationAnnotations(pub.annotations, 'after-venue')}`;
+            const linksSection = linksHTML ? `<div class="publication-details">${renderPublicationAnnotations(pub.annotations, 'before-links')}${linksHTML}${renderPublicationAnnotations(pub.annotations, 'after-links')}</div>` : '';
+
+            return `
+                <div class="publication-authors">${authorsLine}</div>
+                <div class="publication-venue">${venueHTML}</div>
+                ${linksSection}
+                ${renderPublicationAnnotations(pub.annotations, 'bottom')}
+            `;
+        }
+
+        function isAttendanceNewsItem(newsItem) {
+            const content = (newsItem && newsItem.content ? String(newsItem.content) : '').toLowerCase();
+            return /(\battend(?:ed|ing|s)?\b|参加|出席|前往|赴|到.*参加|speaker of poster|poster session)/i.test(content);
+        }
+
+        function selectHomepageNewsItems(newsData, maxCount) {
+            if (!Array.isArray(newsData) || maxCount <= 0) return [];
+
+            const sortedNews = [...newsData].sort((left, right) => new Date(right.date) - new Date(left.date));
+            const selected = [];
+            let attendanceItem = null;
+
+            for (const newsItem of sortedNews) {
+                const attendanceNews = isAttendanceNewsItem(newsItem);
+                if (attendanceNews) {
+                    if (!attendanceItem) {
+                        attendanceItem = newsItem;
+                    }
+                    continue;
+                }
+
+                selected.push(newsItem);
+
+                if (selected.length >= maxCount) break;
+            }
+
+            if (selected.length < maxCount && attendanceItem) {
+                selected.push(attendanceItem);
+            }
+
+            return selected;
         }
 
         function parseBibTex(bibText) {
@@ -1208,6 +1559,7 @@
                     pdf: fields.pdf || '',
                     code: fields.code || '',
                     project: fields.project || '',
+                    annotations: parsePublicationAnnotations(fields.annotations || fields.annotation || fields.inline || fields.labels),
                     highlight: isHighlight,
                     oral: isOral,
                     poster: isPoster,
@@ -1220,6 +1572,7 @@
         // 显示新闻
         function displayNews(newsData, count, containerId) {
             const newsContainer = document.getElementById(containerId);
+            if (!newsContainer) return;
             newsContainer.innerHTML = '';
             
             // 只显示最新的指定数量的新闻
@@ -1287,9 +1640,56 @@
                 researchGrid.appendChild(researchCard);
             });
         }
+
+        function displayHonors(honorsData, containerId) {
+            const honorsContainer = document.getElementById(containerId);
+            if (!honorsContainer) return;
+
+            honorsContainer.innerHTML = '';
+
+            if (!Array.isArray(honorsData) || honorsData.length === 0) {
+                honorsContainer.innerHTML = '<p>No honors and awards available</p>';
+                return;
+            }
+
+            const awardsList = document.createElement('div');
+            awardsList.className = 'awards-list';
+
+            honorsData.forEach(award => {
+                const awardItem = document.createElement('div');
+                awardItem.className = 'award-item';
+
+                const title = document.createElement('div');
+                title.className = 'award-title';
+
+                const titleText = document.createElement('strong');
+                titleText.textContent = award.title || '';
+                title.appendChild(titleText);
+
+                if (award.subtitle) {
+                    title.appendChild(document.createTextNode(' '));
+                    const subtitle = document.createElement(award.subtitleItalic ? 'em' : 'span');
+                    subtitle.className = 'award-detail';
+                    subtitle.textContent = award.subtitle;
+                    title.appendChild(subtitle);
+                }
+
+                const date = document.createElement('time');
+                date.className = 'award-date';
+                if (award.dateValue) date.dateTime = award.dateValue;
+                date.textContent = award.date || '';
+
+                awardItem.append(title, date);
+                awardsList.appendChild(awardItem);
+            });
+
+            honorsContainer.appendChild(awardsList);
+        }
+
         // 显示出版物
         function displayPublications(publicationsData, count, containerId) {
             const publicationsContainer = document.getElementById(containerId);
+            if (!publicationsContainer) return;
             publicationsContainer.innerHTML = '';
             
             // 按年份排序（最新优先）
@@ -1318,19 +1718,9 @@
                 if (pub.pdf) linksHTML += `<a href="${pub.pdf}" class="publication-link"><i class="far fa-file-pdf"></i> PDF</a>`;
                 if (pub.code) linksHTML += `<a href="${pub.code}" class="publication-link"><i class="fab fa-github"></i> Code</a>`;
                 if (pub.project) linksHTML += `<a href="${pub.project}" class="publication-link"><i class="fas fa-external-link-alt"></i> Project</a>`;
-                const venueParts = [pub.journal, pub.year].filter(Boolean).join(', ');
-                
-                const badges = [
-                    pub.highlight ? '<span class="pub-badge highlight">Highlight</span>' : '',
-                    pub.oral ? '<span class="pub-badge oral">Oral</span>' : '',
-                    pub.poster ? '<span class="pub-badge poster">Poster</span>' : '',
-                    pub.journalBadge ? '<span class="pub-badge journal">Journal</span>' : ''
-                ].filter(Boolean).join('');
                 pubItem.innerHTML = `
-                    <div class="publication-title">${badges}${pub.title}</div>
-                    <div class="publication-authors">${authorHighlighted}</div>
-                    <div>${venueParts}</div>
-                    ${linksHTML ? `<div class="publication-details">${linksHTML}</div>` : ''}
+                    <div class="publication-title">${buildPublicationTitleHTML({ ...pub, title: pub.title })}</div>
+                    ${buildPublicationMetaHTML(pub, linksHTML, authorHighlighted)}
                 `;
                 pubList.appendChild(pubItem);
             });

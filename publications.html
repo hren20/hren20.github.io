@@ -237,6 +237,22 @@
             color: var(--dark);
         }
 
+        .publication-title {
+            line-height: 1.8;
+        }
+
+        .publication-venue {
+            color: var(--gray);
+            margin-top: 6px;
+        }
+
+        .pub-inline-note {
+            display: inline;
+            margin: 0 0.4em;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
         .pub-badge {
             display: inline-flex;
             align-items: center;
@@ -465,17 +481,133 @@
 
         function parseBibFields(fieldsText) {
             const fields = {};
-            const fieldRegex = /(\w+)\s*=\s*(\{([\s\S]*?)\}|\"([\s\S]*?)\"|([^,]+))\s*,?/g;
-            let match;
-            while ((match = fieldRegex.exec(fieldsText)) !== null) {
-                const key = match[1].toLowerCase();
-                const value = (match[3] || match[4] || match[5] || '')
-                    .replace(/[{}]/g, '')
-                    .replace(/\s+/g, ' ')
-                    .trim();
+            let index = 0;
+
+            while (index < fieldsText.length) {
+                while (index < fieldsText.length && /[\s,]/.test(fieldsText[index])) index += 1;
+                if (index >= fieldsText.length) break;
+
+                const keyStart = index;
+                while (index < fieldsText.length && /[\w-]/.test(fieldsText[index])) index += 1;
+                const key = fieldsText.slice(keyStart, index).trim().toLowerCase();
+                while (index < fieldsText.length && /\s/.test(fieldsText[index])) index += 1;
+                if (!key || fieldsText[index] !== '=') {
+                    index += 1;
+                    continue;
+                }
+
+                index += 1;
+                while (index < fieldsText.length && /\s/.test(fieldsText[index])) index += 1;
+
+                let value = '';
+                if (fieldsText[index] === '{') {
+                    index += 1;
+                    let depth = 1;
+                    const valueStart = index;
+                    while (index < fieldsText.length && depth > 0) {
+                        if (fieldsText[index] === '{') depth += 1;
+                        if (fieldsText[index] === '}') depth -= 1;
+                        if (depth > 0) index += 1;
+                    }
+                    value = fieldsText.slice(valueStart, index).trim();
+                    if (fieldsText[index] === '}') index += 1;
+                } else if (fieldsText[index] === '[') {
+                    index += 1;
+                    let depth = 1;
+                    const valueStart = index;
+                    while (index < fieldsText.length && depth > 0) {
+                        if (fieldsText[index] === '[') depth += 1;
+                        if (fieldsText[index] === ']') depth -= 1;
+                        if (depth > 0) index += 1;
+                    }
+                    value = `[${fieldsText.slice(valueStart, index).trim()}]`;
+                    if (fieldsText[index] === ']') index += 1;
+                } else if (fieldsText[index] === '"') {
+                    index += 1;
+                    const valueStart = index;
+                    while (index < fieldsText.length && fieldsText[index] !== '"') index += 1;
+                    value = fieldsText.slice(valueStart, index).trim();
+                    if (fieldsText[index] === '"') index += 1;
+                } else {
+                    const valueStart = index;
+                    while (index < fieldsText.length && fieldsText[index] !== ',') index += 1;
+                    value = fieldsText.slice(valueStart, index).trim();
+                }
+
                 fields[key] = value;
             }
             return fields;
+        }
+
+        function parsePublicationAnnotations(rawValue) {
+            if (!rawValue) return [];
+
+            const text = String(rawValue).trim();
+            if (!text) return [];
+
+            let parsed;
+            try {
+                parsed = JSON.parse(text);
+            } catch (error) {
+                const sanitized = text
+                    .replace(/,\s*([}\]])/g, '$1')
+                    .replace(/([{,]\s*)([A-Za-z_]\w*)\s*:/g, '$1"$2":')
+                    .replace(/'([^'\\]*(?:\\.[^'\\]*)*)'/g, '"$1"');
+                try {
+                    parsed = JSON.parse(sanitized);
+                } catch (innerError) {
+                    console.warn('Invalid publication annotations format:', rawValue);
+                    return [];
+                }
+            }
+
+            const annotations = Array.isArray(parsed) ? parsed : [parsed];
+            return annotations
+                .map(annotation => ({
+                    text: (annotation && annotation.text ? String(annotation.text) : '').trim(),
+                    color: (annotation && annotation.color ? String(annotation.color) : '').trim(),
+                    position: ((annotation && (annotation.position || annotation.slot)) ? String(annotation.position || annotation.slot) : 'after-title').trim().toLowerCase(),
+                    order: Number.isFinite(Number(annotation && annotation.order)) ? Number(annotation.order) : 0
+                }))
+                .filter(annotation => annotation.text);
+        }
+
+        function renderPublicationAnnotations(annotations, position) {
+            if (!Array.isArray(annotations) || annotations.length === 0) return '';
+
+            return annotations
+                .filter(annotation => annotation.position === position)
+                .sort((left, right) => left.order - right.order)
+                .map(annotation => {
+                    const style = annotation.color ? ` style="color: ${annotation.color};"` : '';
+                    return `<span class="pub-inline-note"${style}>${annotation.text}</span>`;
+                })
+                .join('');
+        }
+
+        function buildPublicationTitleHTML(pub) {
+            const badges = [
+                pub.highlight ? '<span class="pub-badge highlight">Highlight</span>' : '',
+                pub.oral ? '<span class="pub-badge oral">Oral</span>' : '',
+                pub.poster ? '<span class="pub-badge poster">Poster</span>' : '',
+                pub.journalBadge ? '<span class="pub-badge journal">Journal</span>' : ''
+            ].filter(Boolean).join('');
+
+            return `${renderPublicationAnnotations(pub.annotations, 'top')}${renderPublicationAnnotations(pub.annotations, 'before-title')}${badges}${pub.title}${renderPublicationAnnotations(pub.annotations, 'after-title')}`;
+        }
+
+        function buildPublicationMetaHTML(pub, linksHTML) {
+            const authorsHTML = `${renderPublicationAnnotations(pub.annotations, 'before-authors')}${pub.authors}${renderPublicationAnnotations(pub.annotations, 'after-authors')}`;
+            const venueText = [pub.journal, pub.year].filter(Boolean).join(', ');
+            const venueHTML = `${renderPublicationAnnotations(pub.annotations, 'before-venue')}${venueText}${renderPublicationAnnotations(pub.annotations, 'after-venue')}`;
+            const linksSection = linksHTML ? `<div class="publication-details">${renderPublicationAnnotations(pub.annotations, 'before-links')}${linksHTML}${renderPublicationAnnotations(pub.annotations, 'after-links')}</div>` : '';
+
+            return `
+                <div class="publication-authors">${authorsHTML}</div>
+                <div class="publication-venue">${venueHTML}</div>
+                ${linksSection}
+                ${renderPublicationAnnotations(pub.annotations, 'bottom')}
+            `;
         }
 
         function parseBibTex(bibText) {
@@ -530,6 +662,7 @@
                     pdf: fields.pdf || '',
                     code: fields.code || '',
                     project: fields.project || '',
+                    annotations: parsePublicationAnnotations(fields.annotations || fields.annotation || fields.inline || fields.labels),
                     highlight: isHighlight,
                     oral: isOral,
                     poster: isPoster,
@@ -589,17 +722,12 @@
                 const authorText = pub.authors || '';
                 const authorHighlighted = authorText.replace(/\bHao Ren\b/g, '<strong class="highlight-author">Hao Ren</strong>');
                 const venueParts = [pub.journal, pub.year].filter(Boolean).join(', ');
-                const badges = [
-                    pub.highlight ? '<span class="pub-badge highlight">Highlight</span>' : '',
-                    pub.oral ? '<span class="pub-badge oral">Oral</span>' : '',
-                    pub.poster ? '<span class="pub-badge poster">Poster</span>' : '',
-                    pub.journalBadge ? '<span class="pub-badge journal">Journal</span>' : ''
-                ].filter(Boolean).join('');
                 pubItem.innerHTML = `
-                    <div class="publication-title">${badges}${pub.title}</div>
-                    <div class="publication-authors">${authorHighlighted}</div>
-                    <div>${venueParts}</div>
-                    ${linksHTML ? `<div class="publication-details">${linksHTML}</div>` : ''}
+                    <div class="publication-title">${buildPublicationTitleHTML(pub)}</div>
+                    <div class="publication-authors">${renderPublicationAnnotations(pub.annotations, 'before-authors')}${authorHighlighted}${renderPublicationAnnotations(pub.annotations, 'after-authors')}</div>
+                    <div class="publication-venue">${renderPublicationAnnotations(pub.annotations, 'before-venue')}${venueParts}${renderPublicationAnnotations(pub.annotations, 'after-venue')}</div>
+                    ${linksHTML ? `<div class="publication-details">${renderPublicationAnnotations(pub.annotations, 'before-links')}${linksHTML}${renderPublicationAnnotations(pub.annotations, 'after-links')}</div>` : ''}
+                    ${renderPublicationAnnotations(pub.annotations, 'bottom')}
                 `;
                 pubList.appendChild(pubItem);
             });

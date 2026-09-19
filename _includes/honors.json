@@ -1,0 +1,59 @@
+[
+  {
+    "title": "Graduate National Scholarship",
+    "subtitle": "（国家奖学金）(Top 4%)",
+    "date": "Sept. 2026",
+    "dateValue": "2026-09"
+  },
+  {
+    "title": "Sun Yat-sen University Presidential Fellowship",
+    "subtitle": "(校长奖学金) for Ph.D. students, (2/61)",
+    "date": "Sept. 2026",
+    "dateValue": "2026-09"
+  },
+  {
+    "title": "The school-level first-class scholarship",
+    "subtitle": "for Ph.D. students",
+    "date": "Sept. 2025",
+    "dateValue": "2025-09"
+  },
+  {
+    "title": "The school-level second-class scholarship",
+    "subtitle": "for Ph.D. students",
+    "date": "Sept. 2024",
+    "dateValue": "2024-09"
+  },
+  {
+    "title": "Graduate National Scholarship",
+    "subtitle": "（国家奖学金）(Top 2%)",
+    "date": "Dec. 2023",
+    "dateValue": "2023-12"
+  },
+  {
+    "title": "The second national prize",
+    "subtitle": "China Graduate AI Innovation Competition",
+    "subtitleItalic": true,
+    "date": "Sept. 2023",
+    "dateValue": "2023-09"
+  },
+  {
+    "title": "The third national prize",
+    "subtitle": "China Postgraduate Robot Innovation Competition",
+    "subtitleItalic": true,
+    "date": "Aug. 2023",
+    "dateValue": "2023-08"
+  },
+  {
+    "title": "The third national prize",
+    "subtitle": "The China Graduate Electronics Design Contest",
+    "subtitleItalic": true,
+    "date": "Aug. 2023",
+    "dateValue": "2023-08"
+  },
+  {
+    "title": "The school-level second-class scholarship",
+    "subtitle": "for graduate students",
+    "date": "Oct. 2022",
+    "dateValue": "2022-10"
+  }
+]

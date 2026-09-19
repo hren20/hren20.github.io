@@ -84,6 +84,77 @@ function displayResearch(researchData, count, containerId) {
     });
 }
 
+function parsePublicationAnnotations(rawValue) {
+    if (!rawValue) return [];
+
+    const text = String(rawValue).trim();
+    if (!text) return [];
+
+    let parsed;
+    try {
+        parsed = JSON.parse(text);
+    } catch (error) {
+        const sanitized = text
+            .replace(/,\s*([}\]])/g, '$1')
+            .replace(/([{,]\s*)([A-Za-z_]\w*)\s*:/g, '$1"$2":')
+            .replace(/'([^'\\]*(?:\\.[^'\\]*)*)'/g, '"$1"');
+        try {
+            parsed = JSON.parse(sanitized);
+        } catch (innerError) {
+            console.warn('Invalid publication annotations format:', rawValue);
+            return [];
+        }
+    }
+
+    const annotations = Array.isArray(parsed) ? parsed : [parsed];
+    return annotations
+        .map(annotation => ({
+            text: (annotation && annotation.text ? String(annotation.text) : '').trim(),
+            color: (annotation && annotation.color ? String(annotation.color) : '').trim(),
+            position: ((annotation && (annotation.position || annotation.slot)) ? String(annotation.position || annotation.slot) : 'after-title').trim().toLowerCase(),
+            order: Number.isFinite(Number(annotation && annotation.order)) ? Number(annotation.order) : 0
+        }))
+        .filter(annotation => annotation.text);
+}
+
+function renderPublicationAnnotations(annotations, position) {
+    if (!Array.isArray(annotations) || annotations.length === 0) return '';
+
+    return annotations
+        .filter(annotation => annotation.position === position)
+        .sort((left, right) => left.order - right.order)
+        .map(annotation => {
+            const style = annotation.color ? ` style="color: ${annotation.color};"` : '';
+            return `<span class="pub-inline-note"${style}>${annotation.text}</span>`;
+        })
+        .join('');
+}
+
+function buildPublicationTitleHTML(pub) {
+    const badges = [
+        pub.highlight ? '<span class="pub-badge highlight">Highlight</span>' : '',
+        pub.oral ? '<span class="pub-badge oral">Oral</span>' : '',
+        pub.poster ? '<span class="pub-badge poster">Poster</span>' : '',
+        pub.journalBadge ? '<span class="pub-badge journal">Journal</span>' : ''
+    ].filter(Boolean).join('');
+
+    return `${renderPublicationAnnotations(pub.annotations, 'top')}${renderPublicationAnnotations(pub.annotations, 'before-title')}${badges}${pub.title}${renderPublicationAnnotations(pub.annotations, 'after-title')}`;
+}
+
+function buildPublicationMetaHTML(pub, linksHTML) {
+    const authorsHTML = `${renderPublicationAnnotations(pub.annotations, 'before-authors')}${pub.authors}${renderPublicationAnnotations(pub.annotations, 'after-authors')}`;
+    const venueText = [pub.journal, pub.year].filter(Boolean).join(', ');
+    const venueHTML = `${renderPublicationAnnotations(pub.annotations, 'before-venue')}${venueText}${renderPublicationAnnotations(pub.annotations, 'after-venue')}`;
+    const linksSection = linksHTML ? `<div class="publication-details">${renderPublicationAnnotations(pub.annotations, 'before-links')}${linksHTML}${renderPublicationAnnotations(pub.annotations, 'after-links')}</div>` : '';
+
+    return `
+        <div class="publication-authors">${authorsHTML}</div>
+        <div class="publication-venue">${venueHTML}</div>
+        ${linksSection}
+        ${renderPublicationAnnotations(pub.annotations, 'bottom')}
+    `;
+}
+
 // 显示出版物
 function displayPublications(publicationsData, count, containerId) {
     const publicationsContainer = document.getElementById(containerId);
@@ -119,10 +190,8 @@ function displayPublications(publicationsData, count, containerId) {
         if (pub.project) linksHTML += `<a href="${pub.project}" class="publication-link"><i class="fas fa-external-link-alt"></i> Project</a>`;
         
         pubItem.innerHTML = `
-            <div class="publication-title">${pub.title}</div>
-            <div class="publication-authors">${pub.authors}</div>
-            <div>${pub.journal}, ${pub.year}</div>
-            ${linksHTML ? `<div class="publication-details">${linksHTML}</div>` : ''}
+            <div class="publication-title">${buildPublicationTitleHTML(pub)}</div>
+            ${buildPublicationMetaHTML(pub, linksHTML)}
         `;
         pubList.appendChild(pubItem);
     });
